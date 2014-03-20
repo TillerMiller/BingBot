@@ -52,7 +52,7 @@ def LogIntoOutlook()
 end
 
 def StartSearchLoop()
-	for i in 1..5 do
+	for i in 1..2 do
 		$waitTimeMin = Random.rand(1...$blockTime)
 		$waitTimeSec = Random.rand(1..60)
 		sleep(($waitTimeMin * 60) + $waitTimeSec) #waitTime converted to seconds for sleep call
@@ -64,7 +64,6 @@ end
 I18n.enforce_available_locales = true
 $config = YAML::load(File.read('config.yaml'))
 #`export DISPLAY=:10` # I use this line for starting xvfb headless server
-sleep 5
 $driver = Selenium::WebDriver.for :firefox
 
 #calculate the time block size needed to execute 30 searches given the total desired run time
@@ -73,8 +72,8 @@ $blockTime = ($runTimeHours * 60) / 30
 
 LogIntoOutlook()
 StartSearchLoop()
-$driver.deleteAllVisibleCookies()
+$driver.manage.delete_all_cookies
 LogIntoFacebook()
 StartSearchLoop()
 
-$driver.quit
+#$driver.quit
