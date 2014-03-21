@@ -35,7 +35,8 @@ Install Instructions
  * 'gem install faker'
  * 'gem install i_heart_quotes'
  * 'gem install selenium-webdriver'
-6. Set Browsie.rb to run automatically every day!
+6. Change the config-example.yaml to contain your facebook and outlook credentials, and rename the file to config.yaml
+7. Set Browsie.rb to run automatically every day!
  * Windows - Task Scheduler
  * OSX - Automator
  * Linux - Crontab
@@ -43,4 +44,4 @@ Install Instructions
 Pipeline
 --------
 
-I will be automating an email notification when there are extra points that can be acquired via the 'Notification Center'
+I will be automating an email notification when there are items worth checking in the 'Notification Center'
