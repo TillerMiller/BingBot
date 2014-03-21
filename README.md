@@ -8,11 +8,17 @@ BingBot is my attempt and creating a ruby scrit to automate searches on bing to 
 
 Dependencies
 ------------
-* ruby 1.9.3 (I have not tried running this script on any other version of ruby)
-* firefox (you can choose another driver/browser if you like, just choose one that you don't save passwords or auto log into facebook or outlook)
+
+* Ruby 1.9.3 (I have not tried running this script on any other version of ruby)
+* Firefox (you can choose another driver/browser if you like, just choose one that you don't save passwords or auto log into facebook or outlook)
 * Gems:
  * i_heart_quotes
  * faker
  * selenium-webdriver
  * yaml
-* headless server (optional - I run my Browsie with xvfb)
+* Headless server (optional - I run my Browsie with xvfb so that I never even have to look at bing)
+
+Pipeline
+--------
+
+I will be automating an email notification when there are extra points that can be acquired via the 'Notification Center'
