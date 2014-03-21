@@ -11,7 +11,8 @@ Dependencies
 * ruby 1.9.3 (I have not tried running this script on any other version of ruby)
 * firefox (you can choose another driver/browser if you like, just choose one that you don't save passwords or auto log into facebook or outlook)
 * Gems:
- * faker
- * yaml
- * selenium
  * i_heart_quotes
+ * faker
+ * selenium-webdriver
+ * yaml
+* headless server (optional - I run my Browsie with xvfb)
