@@ -4,6 +4,9 @@
 # corresponding password, and that each
 # argument have a space followed by a '-'
 # followed by another space, then the argument
+#
+# If you don't have one or both of these accounts
+# delete out the keywords and arguments alltogether.
 #############################################
 FACEBOOK_EMAIL: 
  - yourFacebook@email.here

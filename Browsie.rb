@@ -78,18 +78,22 @@ else
 	$blockTime = ($runTimeHours * 60) / 30 # calculate the time block size needed to execute 30 searches given the total desired run time
 end
 
-for i in 1..$config['FACEBOOK_EMAIL'].count do
-	LogIntoFacebook(i-1)
-	StartSearchLoop()
-	LogOut()
-	sleep $sleepWaitTime # needed to ensure logout success
+if $config.has_key?('FACEBOOK_EMAIL') 
+	for i in 1..$config['FACEBOOK_EMAIL'].count do
+		LogIntoFacebook(i-1)
+		StartSearchLoop()
+		LogOut()
+		sleep $sleepWaitTime # needed to ensure logout success
+	end
 end
 
-for i in 1..$config['OUTLOOK_EMAIL'].count do
-	LogIntoOutlook(i-1)
-	StartSearchLoop()
-	LogOut()
-	sleep $sleepWaitTime # needed to ensure logout success
+if $config.has_key?('OUTLOOK_EMAIL') 
+	for i in 1..$config['OUTLOOK_EMAIL'].count do
+		LogIntoOutlook(i-1)
+		StartSearchLoop()
+		LogOut()
+		sleep $sleepWaitTime # needed to ensure logout success
+	end
 end
 
 $driver.quit
