@@ -1,4 +1,19 @@
-FACEBOOK_EMAIL: yourFacebook@email.here
-FACEBOOK_PASSWORD: yourFacebookPassW0rdHere!
-OUTLOOK_EMAIL: yourOutlook@email.here
-OUTLOOK_PASSWORD: yourOutlookPasswordHere!
+#############################################
+# Browsie can handle multiple arguements all
+# that is required is that each email have
+# corresponding password, and that each
+# argument have a space followed by a '-'
+# followed by another space, then the argument
+#############################################
+FACEBOOK_EMAIL: 
+ - yourFacebook@email.here
+ - optional Second email here [repeat as necessary]
+FACEBOOK_PASSWORD: 
+ - yourFacebookPassW0rdHere!
+ - option password for second email [repeat as necessary]
+OUTLOOK_EMAIL: 
+ - yourOutlook@email.here
+ - optional Second email here [repeat as necessary]
+OUTLOOK_PASSWORD: 
+ - yourOutlookPasswordHere!
+ - option password for second email [repeat as necessary]

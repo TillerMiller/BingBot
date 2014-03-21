@@ -7,7 +7,7 @@ require 'i_heart_quotes'
 
 def Search()
 	$driver.navigate.to "http://bing.com"
-	sleep 5
+	sleep $sleepWaitTime
 	searchBar = $driver.find_element(:name, 'q')
 	case Random.rand(1...10)
 		when 1 then searchBar.send_keys IHeartQuotes::Client.where(:max_lines => 1).random.quote() #multi lined quotes was breaking this for me
@@ -30,30 +30,30 @@ def Search()
 			#puts "Switch 9 chosen"
 	end
 	searchBar.submit
-	sleep 5 
+	sleep $sleepWaitTime
 end
 
-def LogIntoFacebook()
+def LogIntoFacebook(index)
 	$driver.navigate.to "http://facebook.com"
 	email = $driver.find_element(:name, 'email')
-	email.send_keys $config['FACEBOOK_USERNAME']
+	email.send_keys $config['FACEBOOK_EMAIL'][index]
 	pass = $driver.find_element(:name, 'pass')
-	pass.send_keys $config['FACEBOOK_PASSWORD']
+	pass.send_keys $config['FACEBOOK_PASSWORD'][index]
 	pass.submit
 end
 
-def LogIntoOutlook()
+def LogIntoOutlook(index)
 	$driver.navigate.to "http://outlook.com"
 	email = $driver.find_element(:name, 'login')
-	email.send_keys $config['OUTLOOK_EMAIL']
+	email.send_keys $config['OUTLOOK_EMAIL'][index] 
 	pass = $driver.find_element(:name, 'passwd')
-	pass.send_keys $config['OUTLOOK_PASSWORD']
+	pass.send_keys $config['OUTLOOK_PASSWORD'][index]
 	pass.submit
 end
 
 def StartSearchLoop()
-	for i in 1..2 do
-		$waitTimeMin = Random.rand(1...$blockTime)
+	$forLoopCount.times do
+		$waitTimeMin = Random.rand(1..$blockTime)
 		$waitTimeSec = Random.rand(1..60)
 		sleep(($waitTimeMin * 60) + $waitTimeSec) #waitTime converted to seconds for sleep call
 		Search()
@@ -61,19 +61,42 @@ def StartSearchLoop()
 	end
 end
 
+# Logs out of either account using partial link text 'Sign out'
+def LogOut()
+	$driver.find_element(:id, 'id_l').click
+	sleep $sleepWaitTime
+	$driver.find_element(:partial_link_text, 'Sign out').click
+end
+
 I18n.enforce_available_locales = true
 $config = YAML::load(File.read('config.yaml'))
+#puts $config.inspect # for debugging purposes to see if the yaml file is formatted correctly
 #`export DISPLAY=:10` # I use this line for starting xvfb headless server
 $driver = Selenium::WebDriver.for :firefox
+$testMode = false # true = quicker runtimes, false = full runs for full points
+$sleepWaitTime = 5
+if $testMode then
+	$forLoopCount = 1 # for testing/debugging
+	$blockTime = 1    # for testing /debugging
+else
+	$forLoopCount = 30 # don't change this variable, you need 30 searches to get 15 points each day
+	$runTimeHours = 3 # change this variable to determine the total runtime for each account
+	# calculate the time block size needed to execute 30 searches given the total desired run time
+	$blockTime = ($runTimeHours * 60) / 30
+end
 
-#calculate the time block size needed to execute 30 searches given the total desired run time
-$runTimeHours = 1
-$blockTime = ($runTimeHours * 60) / 30
+for i in 1..$config['FACEBOOK_EMAIL'].count do
+	LogIntoFacebook(i-1)
+	StartSearchLoop()
+	LogOut()
+	sleep $sleepWaitTime # needed to ensure logout success
+end
 
-LogIntoOutlook()
-StartSearchLoop()
-$driver.manage.delete_all_cookies
-LogIntoFacebook()
-StartSearchLoop()
+for i in 1..$config['OUTLOOK_EMAIL'].count do
+	LogIntoOutlook(i-1)
+	StartSearchLoop()
+	LogOut()
+	sleep $sleepWaitTime # needed to ensure logout success
+end
 
-#$driver.quit
+$driver.quit
