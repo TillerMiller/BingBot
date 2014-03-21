@@ -4,7 +4,7 @@ BingBot
 Description
 -----------
 
-BingBot is my attempt and creating a ruby scrit to automate searches on bing to generate bing points.  The script is built on ruby and uses the selenium driver to log into facebook and or outlook, and then run 30 searches to get 15 points.  The script will attempt to log into each account, and then run the searches in the total amount of time specified by the $runTimeHours variable.  The searches are randomized using both the faker and i_heart_quotes gems, and the time between searches is randomized so that this bot appears less 'bottish'
+BingBot is my attempt and creating a ruby scrit to automate searches on bing.  The script is built on ruby and uses the selenium driver to log into facebook and or outlook, and then run 30 searches.  The script logs into each account, and then runs the searches in the total amount of time specified by the $runTimeHours variable.  The searches are randomized using both the faker and i_heart_quotes gems, and the time between searches is randomized so that this bot appears less 'bottish'
 
 Dependencies
 ------------
@@ -17,6 +17,28 @@ Dependencies
  * selenium-webdriver
  * yaml
 * Headless server (optional - I run my Browsie with xvfb so that I never even have to look at bing)
+
+Install Instructions
+---------------------
+
+1. Git - http://www.git-scm.com/downloads
+ * If you've never used git before I highly recommend watching videos to get familiarized
+2. Install Ruby - https://www.ruby-lang.org/en/downloads/
+3. Clone this repository (Instructions on how to clone a repo - http://git-scm.com/book/en/Git-Basics-Getting-a-Git-Repository):
+ 1. Open git bash (windows) or your terminal window (Linux, OSX)
+ 2. Change directory ('cd') to your desired working directory - cd 'c:/example/of/desiredworking/directory'
+ 3. 'git init'
+ 4. 'git clone https://github.com/TillerMiller/BingBot.git'
+4. If using windows install this dev kit - https://github.com/oneclick/rubyinstaller/wiki/development-kit
+5a. If using bundler 'bundler update'
+5b. If not using bundler Install the required gems:
+ * 'gem install faker'
+ * 'gem install i_heart_quotes'
+ * 'gem install selenium-webdriver'
+6. Set Browsie.rb to run automatically every day!
+ * Windows - Task Scheduler
+ * OSX - Automator
+ * Linux - Crontab
 
 Pipeline
 --------
