@@ -21,7 +21,7 @@ Dependencies
 Install Instructions
 ---------------------
 
-1. Git - http://www.git-scm.com/downloads
+1. Install Git - http://www.git-scm.com/downloads
  * If you've never used git before I highly recommend watching videos to get familiarized
 2. Install Ruby - https://www.ruby-lang.org/en/downloads/
 3. Clone this repository (Instructions on how to clone a repo - http://git-scm.com/book/en/Git-Basics-Getting-a-Git-Repository):
