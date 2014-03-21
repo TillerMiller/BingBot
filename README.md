@@ -8,8 +8,10 @@ BingBot is my attempt and creating a ruby scrit to automate searches on bing to 
 
 Dependencies
 ------------
-
-* faker
-* yaml
-* selenium
-* i_heart_quotes
+* ruby 1.9.3 (I have not tried running this script on any other version of ruby)
+* firefox (you can choose another driver/browser if you like, just choose one that you don't save passwords or auto log into facebook or outlook)
+* Gems:
+ * faker
+ * yaml
+ * selenium
+ * i_heart_quotes
