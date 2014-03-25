@@ -4,7 +4,7 @@ BingBot
 Description
 -----------
 
-BingBot is my attempt and creating a ruby scrit to automate searches on bing.  The script is built on ruby and uses the selenium driver to log into facebook and or outlook, and then run 30 searches.  The script logs into each account, and then runs the searches in the total amount of time specified by the $runTimeHours variable.  The searches are randomized using both the faker and i_heart_quotes gems, and the time between searches is randomized so that this bot appears less 'bottish'
+BingBot is my attempt at creating a ruby script to automate searches on bing.  The script is built on ruby and yaml.  It uses the selenium driver to log into facebook and or outlook, and then runs searches.  The script logs into each account, and then runs the searches in the total amount of time specified by the $runTimeHours variable.  The searches are randomized using both the faker and i_heart_quotes gems, and the time between searches is randomized so that this bot appears less 'bottish'.
 
 Dependencies
 ------------
@@ -16,7 +16,7 @@ Dependencies
  * faker
  * selenium-webdriver
  * yaml
-* Headless server (optional - I run my Browsie with xvfb so that I never even have to look at bing)
+* Headless server (optional - I run my Browsie with xvfb so that I never even see an open browser)
 
 Install Instructions
 ---------------------
