@@ -73,9 +73,9 @@ if $testMode then
 	$forLoopCount = 1 # for testing/debugging
 	$blockTime = 1    # for testing /debugging
 else
-	$forLoopCount = 30 # don't change this variable, you need 30 searches to get 15 points each day
+	$forLoopCount = 60 # only change this variable if you need more than 30 searches to get 15 points each day
 	$runTimeHours = 3 # change this variable to determine the total runtime for each account
-	$blockTime = ($runTimeHours * 60) / 30 # calculate the time block size needed to execute 30 searches given the total desired run time
+	$blockTime = ($runTimeHours * 60) / $forLoopCount # calculate the time block size needed to execute 30 searches given the total desired run time
 end
 
 if $config.has_key?('FACEBOOK_EMAIL') 
