@@ -4,7 +4,9 @@ require 'selenium-webdriver'
 require 'faker'
 require 'yaml'
 require 'i_heart_quotes'
-
+require 'net/smtp'
+require 'mailfactory'
+  
 # Submits a randomized search at bing.com
 def Search()
 	$driver.navigate.to "http://bing.com"
@@ -63,6 +65,29 @@ def LogOut()
 	$driver.find_element(:partial_link_text, 'Sign out').click
 end
 
+def CheckNotificationCenter(toEmail, account)
+	begin
+		notificationCount = $driver.find_element(:id, 'bep')
+		SendEmail(toEmail, notificationCount, account)
+	rescue Exception=>e
+		puts e
+	end
+end
+
+# Sends an email notifying that there are items in the Notification Center to check
+def SendEmail(toEmail, notificationCount, account)
+    mail = MailFactory.new()
+    mail.to = toEmail
+    mail.from = $config['EMAIL_SENDER']
+    mail.subject = "Bingbot Notifications"
+    mail.text = "The number of items in the notification center is " + notificationCount.text + " for " + account + " User: " + toEmail
+	smtp = Net::SMTP.new 'smtp.gmail.com', 587
+	smtp.enable_starttls
+	smtp.start('gmail.com', $config['EMAIL_SENDER'], $config['EMAIL_PASSWORD'], :login)
+	smtp.send_message mail.to_s(), $config['EMAIL_SENDER'], toEmail
+	smtp.finish
+end
+
 I18n.enforce_available_locales = true
 $config = YAML::load(File.read('config.yaml')) #; puts $config.inspect # for debugging purposes to see if the yaml file is formatted correctly
 #`export DISPLAY=:10` # I use this line for starting xvfb headless server
@@ -73,7 +98,7 @@ if $testMode then
 	$forLoopCount = 1 # for testing/debugging
 	$blockTime = 1    # for testing /debugging
 else
-	$forLoopCount = 60 # only change this variable if you need more than 30 searches to get 15 points each day
+	$forLoopCount = 30 # only change this variable if you need more than 30 searches to get 15 points each day
 	$runTimeHours = 3 # change this variable to determine the total runtime for each account
 	$blockTime = ($runTimeHours * 60) / $forLoopCount # calculate the time block size needed to execute 30 searches given the total desired run time
 end
@@ -82,6 +107,7 @@ if $config.has_key?('FACEBOOK_EMAIL')
 	for i in 1..$config['FACEBOOK_EMAIL'].count do
 		LogIntoFacebook(i-1)
 		StartSearchLoop()
+		CheckNotificationCenter($config['FACEBOOK_EMAIL'][i-1], "Facebook")
 		LogOut()
 		sleep $sleepWaitTime # needed to ensure logout success
 	end
@@ -91,6 +117,7 @@ if $config.has_key?('OUTLOOK_EMAIL')
 	for i in 1..$config['OUTLOOK_EMAIL'].count do
 		LogIntoOutlook(i-1)
 		StartSearchLoop()
+		CheckNotificationCenter($config['OUTLOOK_EMAIL'][i-1], "Outlook")
 		LogOut()
 		sleep $sleepWaitTime # needed to ensure logout success
 	end
