@@ -4,7 +4,7 @@ BingBot
 Description
 -----------
 
-BingBot is my attempt at creating a ruby script to automate searches on bing.  The script is built on ruby and yaml.  It uses the selenium driver to log into facebook and or outlook, and then runs searches.  The script logs into each account, and then runs the searches in the total amount of time specified by the $runTimeHours variable.  The searches are randomized using both the faker and i_heart_quotes gems, and the time between searches is randomized so that this bot appears less 'bottish'.
+BingBot is my attempt at creating a ruby script to automate searches on bing.  The script is built on ruby and yaml.  It uses the selenium driver to log into facebook and or outlook, and then runs searches.  The script logs into each account, and then runs the searches in the total amount of time specified by the $runTimeHours variable.  The searches are randomized using both the faker and i_heart_quotes gems, and the time between searches is randomized so that this bot appears less 'bottish'.  Lastly, Bingbot will email notifications to you when there are items in the Bing 'Notification Center'.
 
 Dependencies
 ------------
@@ -35,13 +35,9 @@ Install Instructions
  * 'gem install faker'
  * 'gem install i_heart_quotes'
  * 'gem install selenium-webdriver'
+ * 'gem install mailfactory'
 6. Change the config-example.yaml to contain your facebook and outlook credentials, and rename the file to config.yaml
 7. Set Browsie.rb to run automatically every day!
  * Windows - Task Scheduler
  * OSX - Automator
  * Linux - Crontab
-
-Pipeline
---------
-
-I will be automating an email notification when there are items worth checking in the 'Notification Center'
