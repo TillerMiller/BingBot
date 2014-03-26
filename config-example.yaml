@@ -20,3 +20,5 @@ OUTLOOK_EMAIL:
 OUTLOOK_PASSWORD: 
  - yourOutlookPasswordHere!
  - option password for second email [repeat as necessary]
+EMAIL_SENDER: some gmail email here
+EMAIL_PASSWORD: password to above gmail account
