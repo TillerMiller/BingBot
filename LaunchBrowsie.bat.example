@@ -1,0 +1,2 @@
+cd "C:\Users\tylerm\Documents\RubyProjects\BingBot\" rem this should be the path to where you've downloaded Browsie
+"C:\Users\tylerm\Documents\RubyProjects\BingBot\Browsie.rb" rem this simply runs Browsie
