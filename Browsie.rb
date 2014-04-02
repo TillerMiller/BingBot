@@ -68,7 +68,8 @@ end
 def CheckNotificationCenter(toEmail, account)
 	begin
 		notificationCount = $driver.find_element(:id, 'bep')
-		SendEmail(toEmail, notificationCount, account)
+		SendEmail(toEmail, notificationCount, account) unless
+		notificationCount.text.empty?
 	rescue Exception=>e
 		puts e
 	end
@@ -76,11 +77,11 @@ end
 
 # Sends an email notifying that there are items in the Notification Center to check
 def SendEmail(toEmail, notificationCount, account)
-    mail = MailFactory.new()
-    mail.to = toEmail
-    mail.from = $config['EMAIL_SENDER']
-    mail.subject = "Bingbot Notifications"
-    mail.text = "The number of items in the notification center is " + notificationCount.text + " for " + account + " User: " + toEmail
+	mail = MailFactory.new()
+	mail.to = toEmail
+	mail.from = $config['EMAIL_SENDER']
+	mail.subject = "Bingbot Notifications"
+	mail.text = "The number of items in the notification center is " + notificationCount.text + " for " + account + " User: " + toEmail
 	smtp = Net::SMTP.new 'smtp.gmail.com', 587
 	smtp.enable_starttls
 	smtp.start('gmail.com', $config['EMAIL_SENDER'], $config['EMAIL_PASSWORD'], :login)
@@ -99,7 +100,7 @@ if $testMode then
 	$blockTime = 1    # for testing /debugging
 else
 	$forLoopCount = 30 # only change this variable if you need more than 30 searches to get 15 points each day
-	$runTimeHours = 3 # change this variable to determine the total runtime for each account
+	$runTimeHours = 2 # change this variable to determine the total runtime for each account
 	$blockTime = ($runTimeHours * 60) / $forLoopCount # calculate the time block size needed to execute 30 searches given the total desired run time
 end
 
